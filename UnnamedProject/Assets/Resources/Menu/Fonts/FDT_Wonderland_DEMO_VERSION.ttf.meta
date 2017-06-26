@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 869517db8d54faa4cb5f6007305dc2d4
+timeCreated: 1497519183
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FDT_Wonderland
+  fontNames:
+  - FDT_Wonderland
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
