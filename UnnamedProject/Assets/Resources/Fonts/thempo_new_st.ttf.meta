@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d7046f96a2ab46b4eb741487cd21fb45
+timeCreated: 1498566145
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Thempo New St
+  fontNames:
+  - Thempo New St
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
