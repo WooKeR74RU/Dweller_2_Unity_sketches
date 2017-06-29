@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.Events;
 
 [RequireComponent(typeof(CanvasGroup))]
@@ -11,13 +10,11 @@ public class GenericDialog : MonoBehaviour
 
 	GameObject main_;
 	GameObject panel;
-	VerticalLayoutGroup layout;
-	Canvas canvas;
 	public GenericDialog(int x,int y,int width, int height)
 	{
 		main_ = new GameObject("DialogCanvas");
-		
-		canvas = main_.AddComponent<Canvas>();
+
+		Canvas canvas = main_.AddComponent<Canvas>();
 			canvas.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
 		canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 		main_.AddComponent<CanvasScaler>();
@@ -28,7 +25,7 @@ public class GenericDialog : MonoBehaviour
 		panel.AddComponent<RectTransform>().transform.position = new Vector2(x,y);
 		panel.transform.SetParent(canvas.transform, false);
 		panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-		layout = panel.AddComponent<VerticalLayoutGroup>();
+		VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
 		panel.AddComponent<ContentSizeFitter>();
 		panel.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 		LayoutPreferences();
@@ -38,8 +35,8 @@ public class GenericDialog : MonoBehaviour
 	public GenericDialog(int x, int y, int width, int height, GameObject canvas_)
 	{
 		main_ = canvas_;
-		
-		canvas = main_.GetComponent<Canvas>();
+
+		Canvas canvas = main_.GetComponent<Canvas>();
 		canvas.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);////MAGICCCC
 		canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 		panel = new GameObject("DialogPanel");
@@ -48,8 +45,8 @@ public class GenericDialog : MonoBehaviour
 		panel.AddComponent<RectTransform>().transform.position = new Vector2(Screen.width / 2f, Screen.height / 2f);
 		panel.transform.SetParent(canvas.transform, false);
 		panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-	
-		layout = panel.AddComponent<VerticalLayoutGroup>();
+
+		VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
 		panel.AddComponent<ContentSizeFitter>();
 		panel.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 		LayoutPreferences();
@@ -58,25 +55,28 @@ public class GenericDialog : MonoBehaviour
 	}
 	void LayoutPreferences()
 	{
-		layout.childControlWidth = false;
-		layout.childControlHeight = false;
-		layout.childForceExpandWidth = false;
-		layout.childForceExpandHeight = false;
-		layout.childAlignment = TextAnchor.UpperCenter;
+		panel.GetComponent<VerticalLayoutGroup>().childControlWidth = false;
+		panel.GetComponent<VerticalLayoutGroup>().childControlHeight = false;
+		panel.GetComponent<VerticalLayoutGroup>().childForceExpandWidth = false;
+		panel.GetComponent<VerticalLayoutGroup>().childForceExpandHeight = false;
+		panel.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.UpperCenter;
 	}
 	public void SetChildAligment(TextAnchor p)
 	{
-		layout.childAlignment = p;
+		panel.GetComponent<VerticalLayoutGroup>().childAlignment = p;
 	}
 	public void SetChildForceExpandWidth(bool p)
 	{
-		layout.childForceExpandWidth = p;
+		panel.GetComponent<VerticalLayoutGroup>().childForceExpandWidth = p;
 	}
 	public void SetBackground(Texture2D t)
 	{
 		panel.AddComponent<Image>().sprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f), 1);
 	}
-
+	public void SetBackground(Sprite sprite)
+	{
+		panel.AddComponent<Image>().sprite = sprite;
+	}
 	public void SetPaddings(int left,int right,int top,int bottom)
 	{
 		panel.GetComponent<VerticalLayoutGroup>().padding.bottom = bottom;
@@ -86,7 +86,7 @@ public class GenericDialog : MonoBehaviour
 	}
 	public void SetChildControlWidth(bool p)
 	{
-		layout.childControlWidth = p;
+		panel.GetComponent<VerticalLayoutGroup>().childControlWidth = p;
 	}
 	public void AddButton(string text,Texture2D background,int width, int height)
 	{
@@ -137,5 +137,9 @@ public class GenericDialog : MonoBehaviour
 	public void Cancel()
 	{
 		Destroy(panel);
+	}
+	public Image GetDialogBackgroundImage()
+	{
+		return panel.GetComponent<Image>();
 	}
 }
