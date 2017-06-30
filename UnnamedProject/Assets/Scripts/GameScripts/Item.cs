@@ -51,7 +51,7 @@ public class Item
 		{
 			UnityEngine.GameObject.Destroy(gameObj);
 			gameObj = null;
-			GlobalData.removeFromMap(x, y, z);
+			GlobalData.removeFromField(x, y, z);
 			chooseDialog.Cancel();
 		}
 	}

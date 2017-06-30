@@ -81,6 +81,9 @@
     <Compile Include="Assets\Map.cs" />
     <Compile Include="Assets\Menu.cs" />
     <Compile Include="Assets\Resize.cs" />
+    <Compile Include="Assets\UI\Button.cs" />
+    <Compile Include="Assets\UI\GenericDialog.cs" />
+    <Compile Include="Assets\UI\TextView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\test.txt" />

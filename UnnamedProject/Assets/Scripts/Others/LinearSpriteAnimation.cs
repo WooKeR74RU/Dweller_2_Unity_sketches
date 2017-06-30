@@ -5,6 +5,7 @@ using UnityEngine;
 /*
 	Create animation from Sprite array.
 */
+[RequireComponent(typeof(SpriteRenderer))]
 
 public class LinearSpriteAnimation : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class LinearSpriteAnimation : MonoBehaviour
 	{
 		if (curFrame == frames.Count)
 			curFrame = 0;
+		//if(gameObj.Compo)
 		SpriteRenderer sprRenderer = gameObj.GetComponent<SpriteRenderer>();
 		sprRenderer.sprite = frames[curFrame];
 		curFrame++;

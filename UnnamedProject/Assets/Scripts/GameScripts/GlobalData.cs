@@ -2,18 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pair<FT, ST>
-{
-	public FT x;
-	public ST y;
-	public Pair()
-	{}
-	public Pair(FT a, ST b)
-	{
-		x = a;
-		y = b;
-	}
-}
 
 public class GlobalData : MonoBehaviour
 {
@@ -77,63 +65,51 @@ public class GlobalData : MonoBehaviour
 		}
 	}
 
-	public static void addToMapNewObject(Entity entity, int mapX, int mapY)
+	public static void addNewObject(Entity entity)
 	{
 		for (int i = 0; i < entities.Count; i++)
 		{
 			if (entities[i].gameObj == null)
 			{
-				entity.z = field[mapY][mapX].Count;
 				entities[i] = entity;
-				field[mapY][mapX].Add(new Pair<int, int>(0, i));
 				return;
 			}
 		}
-		entity.z = field[mapY][mapX].Count;
-		field[mapY][mapX].Add(new Pair<int, int>(0, entities.Count));
 		entities.Add(entity);
 		return;
 	}
-	public static void addToMapNewObject(Unit unit, int mapX, int mapY)
+	public static void addNewObject(Unit unit)
 	{
 		for (int i = 0; i < units.Count; i++)
 		{
 			if (units[i].gameObj == null)
 			{
-				unit.z = field[mapY][mapX].Count;
 				units[i] = unit;
-				field[mapY][mapX].Add(new Pair<int, int>(1, i));
 				return;
 			}
 		}
-		unit.z = field[mapY][mapX].Count;
-		field[mapY][mapX].Add(new Pair<int, int>(1, units.Count));
 		units.Add(unit);
 		return;
 	}
-	public static void addToMapNewObject(Item item, int mapX, int mapY)
+	public static void addNewObject(Item item)
 	{
 		for (int i = 0; i < items.Count; i++)
 		{
 			if (items[i].gameObj == null)
 			{
-				item.z = field[mapY][mapX].Count;
 				items[i] = item;
-				field[mapY][mapX].Add(new Pair<int, int>(2, i));
 				return;
 			}
 		}
-		item.z = field[mapY][mapX].Count;
-		field[mapY][mapX].Add(new Pair<int, int>(2, items.Count));
 		items.Add(item);
 		return;
 	}
 
-	public static void addToMap(int type, int idInArrOfType, int x, int y)
+	public static void addToField(int type, int idInArrOfType, int x, int y)
 	{
 		field[y][x].Add(new Pair<int, int>(type, idInArrOfType));
 	}
-	public static void removeFromMap(int x, int y, int z)
+	public static void removeFromField(int x, int y, int z)
 	{
 		field[y][x].RemoveAt(z);
 		for (int i = 0; i < field[y][x].Count; i++)

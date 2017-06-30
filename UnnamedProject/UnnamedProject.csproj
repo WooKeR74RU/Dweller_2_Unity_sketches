@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Others\ApplicationFunctions.cs" />
     <Compile Include="Assets\Scripts\Others\CameraScale.cs" />
     <Compile Include="Assets\Scripts\Others\LinearSpriteAnimation.cs" />
+    <Compile Include="Assets\Scripts\Others\Utilities.cs" />
     <Compile Include="Assets\Scripts\UI\Button.cs" />
     <Compile Include="Assets\Scripts\UI\GenericDialog.cs" />
     <Compile Include="Assets\Scripts\UI\TextView.cs" />

@@ -97,8 +97,8 @@ public class Unit
 	{
 		int nx = u.x + (int)move_vector.x, ny = u.y + (int)move_vector.y;
 		int val = GlobalData.field[u.y][u.x][u.z].y;
-		GlobalData.removeFromMap(u.x, u.y, u.z);
-		GlobalData.addToMap(1, val, nx, ny);
+		GlobalData.removeFromField(u.x, u.y, u.z);
+		GlobalData.addToField(1, val, nx, ny);
 		u.x = nx;
 		u.y = ny;
 		u.worldX = u.worldX + (int)move_vector.x * GlobalData.SPRITE_SIZE;
