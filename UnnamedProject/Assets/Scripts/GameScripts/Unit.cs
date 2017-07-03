@@ -13,6 +13,11 @@ public class Unit
 	public int x, y, z;
 	public GameObject gameObj;
 
+	public int visibleStatus(int x,int y)
+	{
+		//0 - Unit not visible object in x,y position; 1 - dangerous position; 2  - visible object 
+		return 1;
+	}
 	public static Unit createUnit(int x, int y, int id)
 	{
 		int sprSize = GlobalData.SPRITE_SIZE;
@@ -93,16 +98,16 @@ public class Unit
 			break;
 		}
 	}
-	void move(Unit u, Vector2 move_vector)
+	void move(Unit u, Vector2 moveVector)
 	{
-		int nx = u.x + (int)move_vector.x, ny = u.y + (int)move_vector.y;
+		int nx = u.x + (int)moveVector.x, ny = u.y + (int)moveVector.y;
 		int val = GlobalData.field[u.y][u.x][u.z].y;
 		GlobalData.removeFromField(u.x, u.y, u.z);
 		GlobalData.addToField(1, val, nx, ny);
 		u.x = nx;
 		u.y = ny;
-		u.worldX = u.worldX + (int)move_vector.x * GlobalData.SPRITE_SIZE;
-		u.worldY = u.worldY + (int)move_vector.y * GlobalData.SPRITE_SIZE;
+		u.worldX = u.worldX + (int)moveVector.x * GlobalData.SPRITE_SIZE;
+		u.worldY = u.worldY + (int)moveVector.y * GlobalData.SPRITE_SIZE;
 		u.gameObj.transform.position = new Vector2(u.worldX, u.worldY);
 	}
 

@@ -10,29 +10,7 @@ public class GenericDialog : MonoBehaviour
 
 	GameObject main_;
 	public GameObject panel;
-	public GenericDialog(int x,int y,int width, int height)
-	{
-		main_ = new GameObject("DialogCanvas");
-
-		Canvas canvas = main_.AddComponent<Canvas>();
-			canvas.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-		canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-		main_.AddComponent<CanvasScaler>();
-		main_.AddComponent<GraphicRaycaster>();
-		panel = new GameObject("DialogPanel");
-		panel.AddComponent<CanvasRenderer>();
-	
-		panel.AddComponent<RectTransform>().transform.position = new Vector2(x,y);
-		panel.transform.SetParent(canvas.transform, false);
-		panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-		VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
-		panel.AddComponent<ContentSizeFitter>();
-		panel.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-		LayoutPreferences();
-		panel.GetComponent<RectTransform>().sizeDelta = new Vector2(width, panel.GetComponent<RectTransform>().sizeDelta.y);
-		panel.SetActive(false);
-	}
-	public GenericDialog(int x, int y, int width, int height, GameObject canvas_)
+	public GenericDialog(int x,int y,int width, int height, GameObject canvas_)
 	{
 		main_ = canvas_;
 
@@ -42,10 +20,12 @@ public class GenericDialog : MonoBehaviour
 		panel = new GameObject("DialogPanel");
 		panel.AddComponent<CanvasRenderer>();
 		
-		panel.AddComponent<RectTransform>().transform.position = new Vector2(Screen.width / 2f, Screen.height / 2f);
+		
 		panel.transform.SetParent(canvas.transform, false);
-		panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-
+		panel.AddComponent<RectTransform>().transform.position = new Vector2(x, y);
+		panel.GetComponent<RectTransform>().anchorMin = new Vector2(0, 1);
+		panel.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
+	
 		VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
 		panel.AddComponent<ContentSizeFitter>();
 		panel.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;

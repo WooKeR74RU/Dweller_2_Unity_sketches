@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\GameScripts\GlobalData.cs" />
     <Compile Include="Assets\Scripts\GameScripts\Item.cs" />
     <Compile Include="Assets\Scripts\GameScripts\Unit.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\UnitDescription.cs" />
     <Compile Include="Assets\Scripts\Others\ApplicationFunctions.cs" />
     <Compile Include="Assets\Scripts\Others\CameraScale.cs" />
     <Compile Include="Assets\Scripts\Others\LinearSpriteAnimation.cs" />

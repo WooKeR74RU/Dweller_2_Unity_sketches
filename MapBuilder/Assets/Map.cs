@@ -12,7 +12,7 @@ public class Map : MonoBehaviour {
 	public static int x=18,y=10;
 	public static List<List<GameObject>> mapa = new List<List<GameObject>>();
 	public static GameObject grid ;
-	public InputField SS;
+	public InputField cellSize;
 	public static  List<List<List<KeyValuePair<string, Texture2D>>>> field = new List<List<List<KeyValuePair<string, Texture2D>>>>();
 	
 	public void Start()
@@ -22,41 +22,30 @@ public class Map : MonoBehaviour {
 	}
 	public void BASE()
 	{
-		grid.GetComponent<GridLayoutGroup>().cellSize = new Vector2(Convert.ToInt32(SS.text), Convert.ToInt32(SS.text));
+		grid.GetComponent<GridLayoutGroup>().cellSize = new Vector2(Convert.ToInt32(cellSize.text), Convert.ToInt32(cellSize.text));
 	}
-	static GenericDialog dialog;
+	public static GameObject dialog;
 	public static void ShowDialog(int x_,int y_)
 	{
 		
 		int x = (int)Input.mousePosition.x;
 		int y = (int)Input.mousePosition.y;
-		dialog = new GenericDialog(x, y, 0, 0, GameObject.Find("UI"));
-		TextView tv = new TextView(x, y, 0, 0, GameObject.Find("UI"));
-		tv.panel.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-		tv.panel.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-		tv.text.GetComponent<UnityEngine.UI.Text>().color = Color.white;
-		dialog.panel.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-		dialog.panel.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
-		dialog.panel.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+		if(dialog == null)
+		dialog  = GameObject.Find("IDPanel");
 		
+		dialog.transform.position = new Vector2(x+50, y+50);
+		dialog.SetActive(true);
+		GameObject text2 = GameObject.Find("IDText");
 		string text = "";
-		for(int i=0;i<field[y_][x_].Count;i++){
-			text += field[y_][x_][i].Key+",";
+		for (int i = 0; i < field[y_][x_].Count; i++)
+		{
+			text += field[y_][x_][i].Key + ",";
 		}
-		tv.SetText(text);
-		dialog.AddText(tv);
-	
-		dialog.SetBackground(Color.black);
-		dialog.panel.GetComponent<Image>().type = Image.Type.Sliced;
-		if(text!="")
-			dialog.SetPaddings(5, 5, 5, 5);
-		
-		dialog.Show();
-		dialog.panel.transform.position = new Vector2((int)Input.mousePosition.x+5, (int)Input.mousePosition.y+5);
+		text2.GetComponent<Text>().text = text;
 	}
 	public static void CancelDialog()
 	{
-		dialog.Cancel();
+		dialog.SetActive(false);
 	}
 	public static void Init()
 	{
@@ -109,13 +98,15 @@ public class Map : MonoBehaviour {
 				EventTrigger trigger = g.AddComponent<EventTrigger>();
 				EventTrigger.Entry entry = new EventTrigger.Entry();
 				entry.eventID = EventTriggerType.PointerEnter;
-				entry.callback.AddListener((eventData) => { ShowDialog(j1,i1); });
+				entry.callback.AddListener((eventData) => { ShowDialog(j1, i1); });
 				trigger.triggers.Add(entry);
 
 				entry = new EventTrigger.Entry();
 				entry.eventID = EventTriggerType.PointerExit;
 				entry.callback.AddListener((eventData) => { CancelDialog(); });
 				trigger.triggers.Add(entry);
+
+			
 
 				g.AddComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { SetBlock(i1,j1); });
 				g.transform.parent = grid.transform;
@@ -149,7 +140,7 @@ public class Map : MonoBehaviour {
 				if (field[i][j].Count == 0)
 					continue;
 				check = true;
-				p += i + "," + j + ",";
+				p += field.Count - i - 1 + "," + j + ",";
 				for(int k=0;k<field[i][j].Count;k++)
 				{
 
