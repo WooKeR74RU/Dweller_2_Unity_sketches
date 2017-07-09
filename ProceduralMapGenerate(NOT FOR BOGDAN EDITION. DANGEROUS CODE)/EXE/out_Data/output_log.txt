@@ -1,0 +1,58 @@
+Initialize engine version: 5.6.1f1 (2860b30f0b54)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 960M (ID=0x139b)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   22.21.13.8233
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.028 seconds
+Platform assembly: C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\AksCorp\Desktop\MainProject\Unnamed_project\ProceduralMapGenerate(NOT FOR BOGDAN. DANGEROUS CODE)\EXE\out_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.582220 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 26.831087 ms
+
+Unloading 7049 unused Assets to reduce memory usage. Loaded Objects now: 251.
+Total: 13.090210 ms (FindLiveObjects: 0.293777 ms CreateObjectMapping: 0.691554 ms MarkObjects: 0.173333 ms  DeleteObjects: 11.931100 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 19.235094 ms
+
+Unloading 6378 unused Assets to reduce memory usage. Loaded Objects now: 251.
+Total: 12.332433 ms (FindLiveObjects: 0.475555 ms CreateObjectMapping: 0.518666 ms MarkObjects: 0.154666 ms  DeleteObjects: 11.182655 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 20.081758 ms
+
+Unloading 6487 unused Assets to reduce memory usage. Loaded Objects now: 251.
+Total: 12.512433 ms (FindLiveObjects: 0.371110 ms CreateObjectMapping: 0.581777 ms MarkObjects: 0.163110 ms  DeleteObjects: 11.395100 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 20.599981 ms
+
+Unloading 6638 unused Assets to reduce memory usage. Loaded Objects now: 251.
+Total: 13.136432 ms (FindLiveObjects: 0.439999 ms CreateObjectMapping: 0.707554 ms MarkObjects: 0.179555 ms  DeleteObjects: 11.808878 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 23.816423 ms
+
+Unloading 6325 unused Assets to reduce memory usage. Loaded Objects now: 251.
+Total: 15.968431 ms (FindLiveObjects: 0.550221 ms CreateObjectMapping: 0.754665 ms MarkObjects: 0.219999 ms  DeleteObjects: 14.441764 ms)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 4b9c -> priority: 1 
+  Thread -> id: 4524 -> priority: 1 
