@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class Room : MonoBehaviour {
+public class Room
+{
 
-	public List<KeyValuePair<int, int>> map = new List<KeyValuePair<int, int>>();
-	public List<string> texture = new List<string>();
-	public int width = 0, height =0 , id;
-
-	public Room(int id_)
+	public List<ItemDescription> map = new List<ItemDescription>();
+	public List<KeyValuePair<int, int>> entires = new List<KeyValuePair<int, int>>();
+	public int[] usedEntires;
+	public int width = 0, height = 0;
+	int idRoom;
+	public Room(int idRoom)
 	{
-		id = id_;
-		parse(id_.ToString());
+		this.idRoom = idRoom;
+		CreateRoom(idRoom.ToString());
 	}
-	public void parse(string levelMapName)
+	public void CreateRoom(string levelMapName)
 	{
 		string levelMapPath = "maps/" + levelMapName;
 		string mapString = Resources.Load(levelMapPath).ToString();
@@ -30,10 +32,37 @@ public class Room : MonoBehaviour {
 			int currentX = Convert.ToInt32(cellsId[1]), currentY = Convert.ToInt32(cellsId[0]);
 			width = Math.Max(currentX, width);
 			height = Math.Max(currentY, height);
-			map.Add(new KeyValuePair<int, int>(currentX, currentY));
-			texture.Add(cellsId[2]);
+			for(int j=2;j<cellsId.Length;j++)
+			{
+				map.Add(new ItemDescription(Convert.ToInt32(cellsId[j]),currentX, currentY));
+			}
+		
+			
 		}
+		
 		width++;
 		height++;
+		int[,] mm = new int[height, width];
+		for(int i=0;i<map.Count;i++)
+		{
+			mm[map[i].y,map[i].x] = map[i].id;
+		}
+		for (int i = 0; i < height; i++)
+			for (int j = 0; j < width;j++)
+			{
+				try
+				{
+					if (mm[i, j] == 1 && (mm[i + 1, j] == 0 || mm[i - 1, j] == 0 || mm[i, j + 1] == 0 || mm[i, j - 1] == 0))
+					{
+						entires.Add(new KeyValuePair<int, int>(j, i));
+					}
+				}
+				catch{
+					if (mm[i, j] == 1)
+						entires.Add(new KeyValuePair<int, int>(j, i));
+				}
+			}
+		usedEntires = new int[entires.Count];
+
 	}
 }
