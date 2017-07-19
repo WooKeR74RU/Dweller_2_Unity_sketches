@@ -31,8 +31,8 @@ public class Utilities
 	}
 	public static void shuffle<T>(System.Random rng, T[] array)
 	{
-		while (n > 1)
 		int n = array.Length;
+		while (n > 1)
 		{
 			int k = rng.Next(n--);
 			T temp = array[n];

@@ -19,7 +19,7 @@ public class StartWork : MonoBehaviour
 
 	List<Room> rooms = new List<Room>();
 	List<List<int>> map = new List<List<int>>();
-	List<ItemDescription> RoadElements = new List<ItemDescription>();
+	Dictionary<ItemDescription,int> RoadElements = new Dictionary<ItemDescription,int>();
 
 	System.Random rnd = new System.Random();
 
@@ -27,9 +27,9 @@ public class StartWork : MonoBehaviour
 	{
 		loadResources();
 		startGenerate();
-		BuildPaths();
-		//surroundFloor(2);
-		BuildWall();
+		//BuildPaths();
+		surroundFloor(2);
+			BuildWall();
 		//dfs(getRoomByStartPosition[new KeyValuePair<int, int>(10,10)].entires[0].Key, getRoomByStartPosition[new KeyValuePair<int, int>(10, 10)].entires[0].Value);
 	}
 	void BuildWall()
@@ -51,17 +51,21 @@ public class StartWork : MonoBehaviour
 		KeyValuePair<KeyValuePair<int, int>, Room> cur = getNearlyRoom(new KeyValuePair<int, int>(0, 0));
 		while (roomComponent.Count < getRoomByStartPosition.Count)
 		{
-				KeyValuePair<KeyValuePair<int, int>, Room> next = getNearlyRoom(cur.Key);
-				KeyValuePair<int, int> ent1 = getEntire(cur);
-				KeyValuePair<int, int> ent2 = getEntire(next);
-				Debug.Log(ent1.ToString() + " " + ent2.ToString());
-				buildPathBetweenTwoCells(ent1, ent2);
-				cur = next;
+			KeyValuePair<KeyValuePair<int, int>, Room> next = getNearlyRoom(cur.Key);
+			KeyValuePair<int, int> ent1 = getEntire(cur);
+			KeyValuePair<int, int> ent2 = getEntire(next);
+			//Debug.Log(ent1.ToString() + " " + ent2.ToString());
+			buildPathBetweenTwoCells(ent1, ent2);
+			//buildPathBetweenTwoCells(ent2, ent1);
+			cur = next;
 		}
-		for (int i = 0; i < RoadElements.Count; i++)
+		foreach (KeyValuePair<ItemDescription,int> ent in RoadElements)
 		{
-			map[RoadElements[i].y][RoadElements[i].x] = 1;
-			addEntity(RoadElements[i].id.ToString(), RoadElements[i].x, RoadElements[i].y);
+			if (ent.Value >= 1)
+			{
+				map[ent.Key.y][ent.Key.x] = 1;
+				addEntity(ent.Key.id.ToString(), ent.Key.x, ent.Key.y);
+			}
 		}
 	}
 	KeyValuePair<int,int> getEntire(KeyValuePair<KeyValuePair<int, int>, Room> a)
@@ -279,7 +283,11 @@ public class StartWork : MonoBehaviour
 	}
 	void buildPathBetweenTwoCells(KeyValuePair<int, int> from, KeyValuePair<int, int> to)
 	{
-		RoadElements.Add(new ItemDescription(1, from.Key, from.Value));
+		if(RoadElements.ContainsKey(new ItemDescription(1, from.Key, from.Value)))
+			RoadElements[new ItemDescription(1, from.Key, from.Value)]++;
+			else
+			RoadElements[new ItemDescription(1, from.Key, from.Value)] = 1;
+
 		if (from.Key == to.Key && from.Value == to.Value)
 		{
 			visitedPoints.Clear();

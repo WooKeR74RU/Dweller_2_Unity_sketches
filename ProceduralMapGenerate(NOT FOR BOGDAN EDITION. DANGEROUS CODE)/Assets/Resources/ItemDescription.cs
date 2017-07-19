@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemDescription {
+public struct ItemDescription {
 
 	public int id;
 	public int x, y;
