@@ -15,6 +15,7 @@ public class Item
 	public GameObject gameObj;
 	public int count;
 	public bool isDestroyable;
+	public bool opacity;
 	GenericDialog chooseDialog;
 
 	public static Item createItem(int x, int y, int id, int cnt)

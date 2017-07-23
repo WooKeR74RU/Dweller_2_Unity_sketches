@@ -7,15 +7,16 @@ public class FOV
 {
 	private const double fault1 = 0.5;
 	private const double fault2 = 0.5;
-	private const double fault3 = 0.3;
+	private const double fault3 = 0.3; //approved
 
 	private Dictionary<KeyValuePair<int, int>, bool> view = new Dictionary<KeyValuePair<int, int>, bool>();
-	int N = GenerateMap.mapa.Count;
-	int M = GenerateMap.mapa[0].Count;
+	int N = 100;
+	int M = 100;
 	private Dictionary<KeyValuePair<int, int>, bool> used = new Dictionary<KeyValuePair<int, int>, bool>();
 	int curX;
 	int curY;
 	int range;
+	int inside;
 
 	private KeyValuePair<int, int>[] dir = { new KeyValuePair<int, int>(0, -1), new KeyValuePair<int, int>(1, -1), new KeyValuePair<int, int>(1, 0), new KeyValuePair<int, int>(1, 1), new KeyValuePair<int, int>(0, 1), new KeyValuePair<int, int>(-1, 1), new KeyValuePair<int, int>(-1, 0), new KeyValuePair<int, int>(-1, -1) };
 
@@ -43,10 +44,25 @@ public class FOV
 		double dist = numerator / denominator;
 		return dist;
 	}
+	//private bool getOpacityInCell(int x, int y)
+	//{
+	//	for (int i = 0; i < GlobalData.field[y][x].Count; i++)
+	//	{
+	//		int curType = GlobalData.field[y][x][i].x;
+	//		int curId = GlobalData.field[y][x][i].y;
+	//		if (curType == 0 && GlobalData.entities[curId].opacity)
+	//			return true;
+	//		if (curType == 1 && GlobalData.units[curId].opacity)
+	//			return true;
+	//		if (curType == 2 && GlobalData.items[curId].opacity)
+	//			return true;
+	//	}
+	//	return false;
+	//}
+
 	public void visibleCell(int x, int y)
 	{
-		if (view.ContainsKey(new KeyValuePair<int, int>(x, y)))
-			return;
+		int inside = this.inside;
 
 		int shiftX = x - curX;
 		int shiftY = y - curY;
@@ -59,26 +75,39 @@ public class FOV
 		buildLine(ref a, ref b, ref c, 0, 0, trueX, trueY);
 
 		int tmpY = 0;
-		bool flag = false;
+		int prevX = 0, prevY = 0;
 		for (int nowX = 0; nowX <= trueX; nowX++)
 		{
 			while (tmpY <= trueY && distToLine(a, b, c, nowX, tmpY) > fault1)
 				tmpY++;
 			for (int nowY = tmpY; nowY <= trueY && distToLine(a, b, c, nowX, nowY) < fault2; nowY++)
 			{
-				if (!flag && GenerateMap.mapa[curY + nowY * signY][curX + nowX * signX] == false)
+				//transparency
+				
+				if (GenerateMap.mapa[curY + nowY * signY][curX + nowX * signX])
 				{
-					if (!view.ContainsKey(new KeyValuePair<int, int>(curX + nowX * signX, curY + nowY * signY)))
+					inside--;
+					if (inside == 0)
+					{
 						view[new KeyValuePair<int, int>(curX + nowX * signX, curY + nowY * signY)] = true;
+						return;
+					}
 				}
-				else
+				if (nowX - prevX == 1 && nowY - prevY == 1)
 				{
-					flag = true;
-					view[new KeyValuePair<int, int>(curX + nowX * signX, curY + nowY * signY)] = false;
+					if (GenerateMap.mapa[curY + prevY * signY][curX + (prevX + 1) * signX] &&
+						GenerateMap.mapa[curY + (prevY + 1) * signY][curX + prevX * signX])
+					{
+						inside--;
+						if (inside == 0)
+							return;
+					}
 				}
+				prevX = nowX;
+				prevY = nowY;
 			}
 		}
-
+		view[new KeyValuePair<int, int>(x, y)] = true;
 	}
 
 	private void dfs(int x, int y)
@@ -94,14 +123,22 @@ public class FOV
 		}
 	}
 
-	public void updateView(int range, int x, int y)
+	public void updateView(int x, int y, int range, int inside)
 	{
 		view.Clear();
 		used.Clear();
 		curX = x;
 		curY = y;
 		this.range = range;
-		dfs(curX, curY);
+		this.inside = inside;
+		for (int i = 0; i < 30; i++)
+		{
+			for (int j = 0; j < 30; j++)
+			{
+				view[new KeyValuePair<int, int>(i, j)] = true;
+			}
+		}
+		//dfs(curX, curY);
 	}
 
 	Texture2D green;
@@ -115,14 +152,12 @@ public class FOV
 	}
 	public Dictionary<KeyValuePair<int, int>, bool> getView()
 	{
-		green = Resources.Load("2") as Texture2D;
-		foreach (KeyValuePair<KeyValuePair<int, int>, bool> ent in view)
-		{
-			if (ent.Value)
-			{
-				showVisionCell(ent.Key.Key, ent.Key.Value);
-			}
-		}
+		//green = Resources.Load("2") as Texture2D;
+		//foreach (KeyValuePair<KeyValuePair<int, int>, bool> ent in view)
+		//{
+		//	if (ent.Value)
+		//		showVisionCell(ent.Key.Key, ent.Key.Value);
+		//}
 		return view;
 	}
 }

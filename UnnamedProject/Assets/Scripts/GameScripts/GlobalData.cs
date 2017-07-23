@@ -29,39 +29,30 @@ public class GlobalData : MonoBehaviour
 
 		for (int i = ENTITIES_ID_FROM; i <= ENTITIES_ID_TO; i++)
 		{
-			try
-			{
-				typeById.Add(i, 0);
-				getTexureById.Add(i, Resources.Load("Textures/EntitiesTextures/" + i.ToString()) as Texture2D);
-			}
-			catch
-			{
-				Debug.Log(i.ToString() + " file doesn't exist");
-			}
+			string path = "Textures/EntitiesTextures/" + i.ToString();
+			UnityEngine.Object file = Resources.Load(path);
+			if (file == null)
+				continue;
+			getTexureById.Add(i, file as Texture2D);
+			typeById.Add(i, 0);
 		}
 		for (int i = UNITS_ID_FROM; i <= UNITS_ID_TO; i++)
 		{
-			try
-			{
-				typeById.Add(i, 1);
-				getTexureById.Add(i, Resources.Load("Textures/UnitsTextures/" + i.ToString()) as Texture2D);
-			}
-			catch
-			{
-				Debug.Log(i.ToString() + " file doesn't exist");
-			}
+			string path = "Textures/UnitsTextures/" + i.ToString();
+			UnityEngine.Object file = Resources.Load(path);
+			if (file == null)
+				continue;
+			getTexureById.Add(i, file as Texture2D);
+			typeById.Add(i, 1);
 		}
 		for (int i = ITEMS_ID_FROM; i <= ITEMS_ID_TO; i++)
 		{
-			try
-			{
-				typeById.Add(i, 2);
-				getTexureById.Add(i, Resources.Load("Textures/ItemsTextures/" + i.ToString()) as Texture2D);
-			}
-			catch
-			{
-				Debug.Log(i.ToString() + " file doesn't exist");
-			}
+			string path = "Textures/ItemsTextures/" + i.ToString();
+			UnityEngine.Object file = Resources.Load(path);
+			if (file == null)
+				continue;
+			getTexureById.Add(i, file as Texture2D);
+			typeById.Add(i, 2);
 		}
 	}
 

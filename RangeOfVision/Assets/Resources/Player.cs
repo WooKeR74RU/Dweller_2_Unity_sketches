@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
 	}
 	public InputField inp;
 	int range = 5;
+	int inside = 1;
 	// Update is called once per frame
 	void Update () {
 		range = Convert.ToInt32(inp.text);
@@ -33,7 +34,8 @@ public class Player : MonoBehaviour {
 			catch { }
 			this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 48);
 			FOV f = new FOV();
-			f.updateView(range, (int)(this.gameObject.transform.position.x / 48), (int)(this.gameObject.transform.position.y / 48));
+			f.updateView((int)(this.gameObject.transform.position.x / 48), (int)(this.gameObject.transform.position.y / 48), range, inside);
+
 
 			f.getView();
 		}
@@ -54,7 +56,7 @@ public class Player : MonoBehaviour {
 			catch { }
 			this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x - 48, this.gameObject.transform.position.y);
 			FOV f = new FOV();
-			f.updateView(range, (int)(this.gameObject.transform.position.x / 48), (int)(this.gameObject.transform.position.y / 48));
+			f.updateView( (int)(this.gameObject.transform.position.x / 48), (int)(this.gameObject.transform.position.y / 48),range, inside);
 
 			f.getView();
 		}
@@ -75,7 +77,8 @@ public class Player : MonoBehaviour {
 			catch { }
 			this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x + 48, this.gameObject.transform.position.y);
 			FOV f = new FOV();
-			f.updateView(range, (int)(this.gameObject.transform.position.x / 48), (int)(this.gameObject.transform.position.y / 48));
+			f.updateView((int)(this.gameObject.transform.position.x / 48), (int)(this.gameObject.transform.position.y / 48), range, inside);
+
 
 			f.getView();
 		}
@@ -96,7 +99,8 @@ public class Player : MonoBehaviour {
 			catch { }
 			this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y - 48);
 			FOV f = new FOV();
-			f.updateView(range, (int)(this.gameObject.transform.position.x / 48), (int)(this.gameObject.transform.position.y / 48));
+			f.updateView((int)(this.gameObject.transform.position.x / 48), (int)(this.gameObject.transform.position.y / 48), range, inside);
+
 
 			f.getView();
 		}
