@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameScripts\Entity.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\FOV.cs" />
     <Compile Include="Assets\Scripts\GameScripts\GenerateMap.cs" />
     <Compile Include="Assets\Scripts\GameScripts\GlobalData.cs" />
     <Compile Include="Assets\Scripts\GameScripts\Item.cs" />

@@ -13,6 +13,7 @@ public class Entity
 	public int x, y, z;
 	public bool collision, movable, trap;
 	public GameObject gameObj;
+	public bool opacity;
 
 	public static Entity createEntity(int x, int y, int id)
 	{
@@ -55,24 +56,25 @@ public class Entity
 			Debug.Log("Initialization " + id.ToString() + " not defined");
 		}
 	}
-
 	void id_1_initialization()
 	{
 		collision = false;
 		movable = false;
 		trap = false;
+		opacity = false;
 	}
 	void id_3_initialization()
 	{
 		collision = true;
 		movable = false;
 		trap = false;
+		opacity = true;
 	}
 	void id_7_initialization()
 	{
 		collision = true;
 		movable = true;
 		trap = false;
+		opacity = false;
 	}
-
 }

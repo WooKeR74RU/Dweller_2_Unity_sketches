@@ -19,6 +19,7 @@ public class Map : MonoBehaviour {
 	{
 		
 		Init();
+		BASE();
 	}
 	public void BASE()
 	{
@@ -124,45 +125,35 @@ public class Map : MonoBehaviour {
 		}
 	}
 
-
-	public  void WriteString()
+	public void WriteString()
 	{
-		string path = Application.dataPath+"/test.txt";
-		File.WriteAllBytes(path, new byte[0]);
-		//Write some text to the test.txt file
-		StreamWriter writer = new StreamWriter(path, true);
-		for (int i=0;i<field.Count;i++)
+		string path = Application.dataPath + "/test.txt";
+		StreamWriter writer = new StreamWriter(path, false);
+		bool flag = false;
+		for (int i = 0; i < field.Count; i++)
 		{
-			bool check = false;
-			for(int j=0;j<field[i].Count;j++)
+			for (int j = 0; j < field[i].Count; j++)
 			{
-				string p = "{";
 				if (field[i][j].Count == 0)
 					continue;
-				check = true;
-				p += field.Count - i - 1 + "," + j + ",";
-				for(int k=0;k<field[i][j].Count;k++)
+				string curDesc = null;
+				if (!flag)
+					flag = true;
+				else
+					curDesc += "\n";
+				curDesc += j + "x" + (field.Count - 1 - i) + " ";
+				for (int k = 0; k < field[i][j].Count; k++)
 				{
-
-					p += field[i][j][k].Key;
-					
+					curDesc += field[i][j][k].Key;
 					if (k + 1 != field[i][j].Count)
-						p += ",";
+						curDesc += " ";
 				}
-				p += "}#";
-				writer.Write(p);
+				writer.Write(curDesc);
 			}
 		}
-		//writer.WriteLine("Test");
 		writer.Close();
-
-		//Re-import the file to update the reference in the editor
-		//AssetDatabase.ImportAsset(path);
-		//TextAsset asset = Resources.Load("test") as TextAsset;
-
-		//Print the text from the file
-		//Debug.Log(asset.text);
 	}
+
 	static void SetBlock(int i,int j)
 	{
 		if(Menu.cur_block == Menu.textures.Length)

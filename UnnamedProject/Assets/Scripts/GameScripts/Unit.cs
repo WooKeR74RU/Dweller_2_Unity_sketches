@@ -12,6 +12,7 @@ public class Unit
 	public int worldY;
 	public int x, y, z;
 	public GameObject gameObj;
+	public bool opacity;
 
 	public int visibleStatus(int x,int y)
 	{
