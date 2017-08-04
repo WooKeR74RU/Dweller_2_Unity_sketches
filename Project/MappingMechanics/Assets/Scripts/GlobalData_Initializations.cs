@@ -42,9 +42,9 @@ public static partial class GlobalData
 		UnityEngine.Object.DontDestroyOnLoad(controlObj);
 
 		Control.arrowObject = new GameObject("Arrow");
-		Texture2D texture = Resources.Load("Textures/UI/arrow") as Texture2D;
-		Control.arrowObject.AddComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 0), 1);
-		Control.arrowObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+		Control.arrowEnable = Resources.Load("Textures/UI/arrow_enable") as Texture2D;
+		Control.arrowDisable = Resources.Load("Textures/UI/arrow_disable") as Texture2D;
+		Control.arrowObject.AddComponent<SpriteRenderer>().sortingOrder = 2;
 		UnityEngine.Object.DontDestroyOnLoad(Control.arrowObject);
 	}
 

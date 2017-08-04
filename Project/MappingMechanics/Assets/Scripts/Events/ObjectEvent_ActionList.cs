@@ -11,7 +11,6 @@ public partial class ObjectEvent
 
 	public void move(int toX, int toY, BaseObject obj)
 	{
-		Adress adr = new Adress(toX, toY, obj.adr.levelPointer);
 		if (obj is Unit && (obj as Unit).isPlayerControl)
 			obj.adr.levelPointer.display.initializationVisibleGameObjects();
 		obj.adr.levelPointer.map.moveObj(toX, toY, obj);
