@@ -1,5 +1,0 @@
-MapName TestMap
-MatrixSize 5x5
-SegmentSize 50x50
-StartSegment 0x0
-StartPoint 0x0

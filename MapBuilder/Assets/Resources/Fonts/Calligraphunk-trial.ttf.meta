@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 138130527ee5f8245a7cec6f3f497ed3
+timeCreated: 1501221276
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: cAlLiGrApHuNk
+  fontNames:
+  - cAlLiGrApHuNk
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

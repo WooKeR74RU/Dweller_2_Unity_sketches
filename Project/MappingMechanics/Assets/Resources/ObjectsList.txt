@@ -1,0 +1,5 @@
+1. StoneFloor - stone_floor
+3. StoneWall - stone_wall
+1001. Warrior - warrior
+1002. Skeleton - skeleton
+2001. Coins - gold_coins

@@ -6,7 +6,8 @@ public class Menu : MonoBehaviour {
 
 	public static int cur_block = 0;
 	// Use this for initialization
-	public static Object[] textures;
+	Object[] textures;
+	public static Dictionary<string, Texture2D> texturesByName = new Dictionary<string, Texture2D>();
 	public GameObject parent;
 	void Start () {
 		textures = Resources.LoadAll("Textures", typeof(Texture2D));
@@ -20,12 +21,18 @@ public class Menu : MonoBehaviour {
 			g.AddComponent<Image>().sprite = Sprite.Create(texture,new Rect(0,0,texture.width,texture.height),new Vector2(0.5f,0.5f),1);
 			g.transform.parent = parent.transform;
 			g.GetComponent<RectTransform>().localScale = new Vector3(1,1, 1);
+			texturesByName[texture.name] = texture;
+
 		}
 		g = new GameObject();
-		texture = Resources.Load("dell") as Texture2D;
+		texture = Resources.Load("del") as Texture2D;
 		g.AddComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { SetCurBlock(textures.Length); });
 		g.AddComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1);
 		g.transform.parent = parent.transform;
+		g.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+
+		texturesByName[texture.name] = texture;
+
 	}
 	void SetCurBlock(int i)
 	{

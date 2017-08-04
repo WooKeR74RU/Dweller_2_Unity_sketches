@@ -1,0 +1,48 @@
+https://www.youtube.com/playlist?list=PLY4rE9dstrJyTdVJpv7FibSaXB4BHPInb
+
+Список основных команд:
+
+git init
+	Создание в текущей папке пустого git репозитория
+
+git config --list
+	Список конфигураций текущего проекта
+
+git remote add origin https://github.com/WooKeR74RU/Unnamed_project.git
+	Создать переменную origin c адресом удаленного проекта
+
+git status
+	Текущее состояние коммита
+
+git add --all
+	Добавить все файлы в текущий коммит
+
+git commit -m "commit name"
+	Сформировать коммит
+
+git push -u origin master
+	Отправить локальную ветку master на удаленный сервер с адресом origin
+
+git clone https://github.com/WooKeR74RU/Unnamed_project.git
+	Клонировать проект с этого адреса в текущую папку
+
+git branch
+	Список веток проекта
+
+git branch branch_name
+	Создать новую ветку branch_name
+
+git checkout branch_name
+	Переключиться на ветку branch_name
+	
+git checkout commit_id
+	Переключиться коммит по commit_id
+
+git merge branch_name
+	Слияние текущей ветки и branch_name
+
+git fetch
+	Загружает все изменения с онлайн репозитория
+
+git log --graph --all --decorate --oneline
+	Дерево версий проекта

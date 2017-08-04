@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f5dcbb8a4e4ef244fbb685d30657c319
+timeCreated: 1501221276
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Actor
+  fontNames:
+  - Actor
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
