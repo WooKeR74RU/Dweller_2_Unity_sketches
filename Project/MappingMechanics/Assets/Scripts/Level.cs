@@ -11,6 +11,6 @@
 		map = new Map();
 		map.initialize(levelName, this);
 		display = new Display(map);
-		eventSystem = new ObjectEventSystem();
+		eventSystem = new ObjectEventSystem(this);
 	}
 }

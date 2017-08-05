@@ -20,7 +20,7 @@ public class Warrior : Unit
 
 	public override void AIBehavior()
 	{
-		
+		baseAI();
 	}
 
 	public Warrior()

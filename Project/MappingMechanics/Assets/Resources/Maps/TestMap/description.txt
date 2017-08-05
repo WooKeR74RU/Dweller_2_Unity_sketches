@@ -1,4 +1,4 @@
 MapMatrixSize 5x4
 SegmentSize 58x30
 StartSegment 0x0
-StartPointInSegment 0x0
+StartPointInSegment 55x27

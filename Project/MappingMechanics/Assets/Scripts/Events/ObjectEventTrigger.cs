@@ -11,8 +11,11 @@ public class ObjectEventTrigger : MonoBehaviour
 	{
 		foreach (KeyValuePair<string, Level> level in GlobalData.game.levels)
 		{
-			if (level.Value.eventSystem.events.Count != 0)
+			if (level.Value.eventSystem.isExecutionAvailable)
+			{
+				level.Value.eventSystem.isExecutionAvailable = false;
 				level.Value.eventSystem.castEvent();
+			}
 		}
 	}
 }

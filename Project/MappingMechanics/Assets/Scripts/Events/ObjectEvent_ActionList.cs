@@ -14,6 +14,8 @@ public partial class ObjectEvent
 		if (obj is Unit && (obj as Unit).isPlayerControl)
 			obj.adr.levelPointer.display.initializationVisibleGameObjects();
 		obj.adr.levelPointer.map.moveObj(toX, toY, obj);
+
+		obj.adr.levelPointer.eventSystem.isExecutionAvailable = true;
 	}
 
 	public void step(Pair<int, int> moveVector, BaseObject obj)
@@ -23,5 +25,7 @@ public partial class ObjectEvent
 		obj.adr.levelPointer.map.moveObj(toX, toY, obj);
 		if (obj is Unit && (obj as Unit).isPlayerControl)
 			obj.adr.levelPointer.display.moveCamera(moveVector);
+
+		obj.adr.levelPointer.eventSystem.isExecutionAvailable = true;
 	}
 }

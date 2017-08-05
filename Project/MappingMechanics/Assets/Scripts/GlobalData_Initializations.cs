@@ -42,10 +42,13 @@ public static partial class GlobalData
 		UnityEngine.Object.DontDestroyOnLoad(controlObj);
 
 		Control.arrowObject = new GameObject("Arrow");
-		Control.arrowEnable = Resources.Load("Textures/UI/arrow_enable") as Texture2D;
-		Control.arrowDisable = Resources.Load("Textures/UI/arrow_disable") as Texture2D;
 		Control.arrowObject.AddComponent<SpriteRenderer>().sortingOrder = 2;
 		UnityEngine.Object.DontDestroyOnLoad(Control.arrowObject);
+
+		Texture2D arrowEnableTexture = Resources.Load("Textures/UI/arrow_enable") as Texture2D;
+		Texture2D arrowDisableTexture = Resources.Load("Textures/UI/arrow_disable") as Texture2D;
+		Control.arrowEnableSprite = Sprite.Create(arrowEnableTexture, new Rect(0, 0, arrowEnableTexture.width, arrowEnableTexture.height), new Vector2(0, 0), 1);
+		Control.arrowDisableSprite = Sprite.Create(arrowDisableTexture, new Rect(0, 0, arrowDisableTexture.width, arrowDisableTexture.height), new Vector2(0, 0), 1);
 	}
 
 	public static void initializationPoolGameObjects()

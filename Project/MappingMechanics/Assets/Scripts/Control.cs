@@ -9,9 +9,9 @@ public class Control : MonoBehaviour
 	private const int delay = 150;
 
 	public static GameObject arrowObject;
-	public static Texture2D arrowEnable;
-	public static Texture2D arrowDisable;
-	public bool enable;
+	public static Sprite arrowEnableSprite;
+	public static Sprite arrowDisableSprite;
+	public bool enable = false;
 
 	public void setEnable(bool status)
 	{
@@ -19,22 +19,24 @@ public class Control : MonoBehaviour
 		{
 			enable = status;
 			if (enable)
-			{
-				arrowObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(arrowEnable, new Rect(0, 0, arrowEnable.width, arrowEnable.height), new Vector2(0, 0), 1);
-			}
+				arrowObject.GetComponent<SpriteRenderer>().sprite = arrowEnableSprite;
 			else
-			{
-				arrowObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(arrowDisable, new Rect(0, 0, arrowDisable.width, arrowDisable.height), new Vector2(0, 0), 1);
-			}
+				arrowObject.GetComponent<SpriteRenderer>().sprite = arrowDisableSprite;
 		}
+	}
+
+	public void waitCommand(Unit curUnitPointer)
+	{
+		this.curUnitPointer = curUnitPointer;
+		gameObject.SetActive(true);
+		arrowObject.SetActive(true);
 	}
 
 	private void Start()
 	{
+		setEnable(true);
 		gameObject.SetActive(false);
 		arrowObject.SetActive(false);
-		enable = false;
-		setEnable(true);
 	}
 
 	private void Update()
@@ -70,13 +72,20 @@ public class Control : MonoBehaviour
 		if (arrow[2])
 			moveVector.first -= 1;
 
-		bool way = !moveVector.Equals(new Pair<int, int>(0, 0)) && curUnitPointer.isPathPossible(moveVector);
+		bool way = curUnitPointer.isPathPossible(moveVector);
 
-		setEnable(way);
-
-		int curArrowX = (curUnitPointer.adr.worldX + moveVector.first) * 24;
-		int curArrowY = (curUnitPointer.adr.worldY + moveVector.second) * 24;
-		arrowObject.transform.position = new Vector2(curArrowX, curArrowY);
+		if (moveVector.Equals(new Pair<int, int>(0, 0)))
+		{
+			arrowObject.SetActive(false);
+		}
+		else
+		{
+			int curArrowX = (curUnitPointer.adr.worldX + moveVector.first) * 24;
+			int curArrowY = (curUnitPointer.adr.worldY + moveVector.second) * 24;
+			arrowObject.transform.position = new Vector2(curArrowX, curArrowY);
+			setEnable(way);
+			arrowObject.SetActive(true);
+		}
 
 		for (int i = 0; i < dirButtons.Length; i++)
 		{
@@ -90,19 +99,13 @@ public class Control : MonoBehaviour
 			remainder[i] = 0;
 		}
 
-		if (way)
+		if (way && !moveVector.Equals(new Pair<int, int>(0, 0)))
 		{
 			gameObject.SetActive(false);
 			arrowObject.SetActive(false);
 			curUnitPointer.adr.levelPointer.eventSystem.addEvent("step", new object[] { moveVector, curUnitPointer }, 1);
-			curUnitPointer.adr.levelPointer.eventSystem.addEvent("behaviour", new object[] { curUnitPointer }, 2);
+			curUnitPointer.adr.levelPointer.eventSystem.addEvent("behaviour", new object[] { curUnitPointer }, 1);
+			curUnitPointer.adr.levelPointer.eventSystem.isExecutionAvailable = true;
 		}
-	}
-
-	public void waitCommand(Unit curUnitPointer)
-	{
-		this.curUnitPointer = curUnitPointer;
-		gameObject.SetActive(true);
-		arrowObject.SetActive(true);
 	}
 }

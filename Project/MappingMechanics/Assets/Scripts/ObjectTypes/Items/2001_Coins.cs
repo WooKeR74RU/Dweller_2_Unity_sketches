@@ -11,7 +11,7 @@ public class Coins : Item
 	public override void setView()
 	{
 		GameObject tmp = GlobalData.poolGameObjects[gameObjId];
-		tmp.GetComponent<LinearSpriteAnimation>().initialize(tmp, id, 1, 0.5f);
+		tmp.GetComponent<LinearSpriteAnimation>().initialize(tmp, id, 1, 0);
 		tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
 	}
 
