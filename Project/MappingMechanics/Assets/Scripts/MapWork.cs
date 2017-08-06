@@ -52,7 +52,18 @@ public class Map
 		mapDesc = new MapDescription(mapName);
 		loadSegmentMatrix(mapDesc.startSegX, mapDesc.startSegY);
 
+		//TODO: delete this shit (demo-version)
 		addObjToMap(mapDesc.worldStartPointX, mapDesc.worldStartPointY, GlobalData.game.player);
+		Mask tavern = new Mask("fake_tavern", 10, 10, 1, 0);
+		tavern.setLayerOrder(625);
+		tavern.setOffset(-5, 20);
+		Mask torches = new Mask("fake_tavern_torches", 10, 10, 4, 0.5f);
+		torches.setLayerOrder(690);
+		torches.setOffset(-5, 20);
+		Mask torchLight = new Mask("fake_torches_light", 10, 10, 1, 0);
+		torchLight.setLayerOrder(720);
+		torchLight.setOffset(-5, 20);
+		torchLight.setMaterial(Resources.Load("ShadersAndMaterials/OverlayMaterial") as Material);
 	}
 
 	public void loadSegmentMatrix(int startSegX, int startSegY)
@@ -150,7 +161,6 @@ public class Map
 	{
 		removeObjFromMap(obj);
 		addObjToMap(toX, toY, obj);
-		obj.updateGameObject();
 	}
 }
 

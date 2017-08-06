@@ -13,7 +13,7 @@ public class Warrior : Unit
 		GameObject tmp = GlobalData.poolGameObjects[gameObjId];
 		tmp.GetComponent<LinearSpriteAnimation>().initialize(tmp, id, 1, 0);
 		//TODO: Переделать обработку слоев
-		tmp.GetComponent<SpriteRenderer>().sortingOrder = 3;
+		tmp.GetComponent<SpriteRenderer>().sortingOrder = 1000;
 		offsetX = -12;
 		offsetY = 0;
 	}

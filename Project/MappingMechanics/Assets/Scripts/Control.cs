@@ -103,8 +103,12 @@ public class Control : MonoBehaviour
 		{
 			gameObject.SetActive(false);
 			arrowObject.SetActive(false);
-			curUnitPointer.adr.levelPointer.eventSystem.addEvent("step", new object[] { moveVector, curUnitPointer }, 1);
-			curUnitPointer.adr.levelPointer.eventSystem.addEvent("behaviour", new object[] { curUnitPointer }, 1);
+
+			ObjectEventSequence sequence = new ObjectEventSequence();
+			sequence.addEvent("step", new object[] { moveVector, curUnitPointer });
+			sequence.addEvent("behaviour", new object[] { curUnitPointer });
+
+			curUnitPointer.adr.levelPointer.eventSystem.addSequence(sequence, 1);
 			curUnitPointer.adr.levelPointer.eventSystem.isExecutionAvailable = true;
 		}
 	}

@@ -42,7 +42,7 @@ public static partial class GlobalData
 		UnityEngine.Object.DontDestroyOnLoad(controlObj);
 
 		Control.arrowObject = new GameObject("Arrow");
-		Control.arrowObject.AddComponent<SpriteRenderer>().sortingOrder = 2;
+		Control.arrowObject.AddComponent<SpriteRenderer>().sortingOrder = 750;
 		UnityEngine.Object.DontDestroyOnLoad(Control.arrowObject);
 
 		Texture2D arrowEnableTexture = Resources.Load("Textures/UI/arrow_enable") as Texture2D;

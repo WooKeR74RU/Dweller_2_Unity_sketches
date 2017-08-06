@@ -46,9 +46,10 @@ public class Display
 	public Display(Map mapPointer)
 	{
 		this.mapPointer = mapPointer;
-		active = false;
+		active = true; //temporally
 		cameraX = mapPointer.mapDesc.worldStartPointX - GlobalData.viewportM / 2;
 		cameraY = mapPointer.mapDesc.worldStartPointY - GlobalData.viewportN / 2;
+		active = false;
 	}
 
 	public void initializationVisibleGameObjects()
@@ -95,7 +96,7 @@ public class Display
 			list[j].setGameObject(GlobalData.freeGameObjectFromPool());
 	}
 
-	private void moveCameraUp()
+	private void stepCameraUp()
 	{
 		if (active)
 		{
@@ -109,7 +110,7 @@ public class Display
 		}
 		cameraY++;
 	}
-	private void moveCameraDown()
+	private void stepCameraDown()
 	{
 		cameraY--;
 		if (active)
@@ -123,7 +124,7 @@ public class Display
 			}
 		}
 	}
-	private void moveCameraLeft()
+	private void stepCameraLeft()
 	{
 		cameraX--;
 		if (active)
@@ -137,7 +138,7 @@ public class Display
 			}
 		}
 	}
-	private void moveCameraRight()
+	private void stepCameraRight()
 	{
 		if (active)
 		{
@@ -152,16 +153,16 @@ public class Display
 		cameraX++;
 	}
 
-	public void moveCamera(Pair<int, int> moveVector)
+	public void stepCamera(Pair<int, int> moveVector)
 	{
 		if (moveVector.second == 1)
-			moveCameraUp();
+			stepCameraUp();
 		if (moveVector.second == -1)
-			moveCameraDown();
+			stepCameraDown();
 		if (moveVector.first == -1)
-			moveCameraLeft();
+			stepCameraLeft();
 		if (moveVector.first == 1)
-			moveCameraRight();
+			stepCameraRight();
 
 		int cameraCenterX = cameraX + GlobalData.viewportM / 2;
 		int cameraCenterY = cameraY + GlobalData.viewportN / 2;

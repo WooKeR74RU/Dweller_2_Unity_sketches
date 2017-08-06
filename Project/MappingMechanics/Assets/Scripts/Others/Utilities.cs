@@ -13,8 +13,7 @@ public class Pair<FT, ST> : IEquatable<Pair<FT, ST>>
 	}
 	public override string ToString()
 	{
-		string tmp = "[" + first.ToString() + ", " + second.ToString() + "]";
-		return tmp;
+		return "[" + first.ToString() + ", " + second.ToString() + "]";
 	}
 	public bool Equals(Pair<FT, ST> other)
 	{

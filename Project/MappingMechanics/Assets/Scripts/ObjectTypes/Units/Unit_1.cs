@@ -17,6 +17,8 @@ public abstract class Unit : BaseObject
 
 	public abstract void AIBehavior();
 
+	public static Random random = new Random();
+
 	public void behavior()
 	{
 		if (isPlayerControl)
@@ -27,17 +29,18 @@ public abstract class Unit : BaseObject
 
 	public void baseAI() //temporarily
 	{
-		Random random = new Random();
+		ObjectEventSequence sequence = new ObjectEventSequence();
 		for (int i = 0; i < 100; i++) //temporarily
 		{
 			int dir = random.Next(8);
 			if (isPathPossible(dir8[dir]))
 			{
-				adr.levelPointer.eventSystem.addEvent("step", new object[] { dir8[dir], this }, 1);
+				sequence.addEvent("step", new object[] { dir8[dir], this });
 				break;
 			}
 		}
-		adr.levelPointer.eventSystem.addEvent("behaviour", new object[] { this }, 1);
+		sequence.addEvent("behaviour", new object[] { this });
+		adr.levelPointer.eventSystem.addSequence(sequence, 1);
 		adr.levelPointer.eventSystem.isExecutionAvailable = true;
 	}
 

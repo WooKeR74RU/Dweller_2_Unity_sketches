@@ -12,7 +12,7 @@ public class Coins : Item
 	{
 		GameObject tmp = GlobalData.poolGameObjects[gameObjId];
 		tmp.GetComponent<LinearSpriteAnimation>().initialize(tmp, id, 1, 0);
-		tmp.GetComponent<SpriteRenderer>().sortingOrder = 1;
+		tmp.GetComponent<SpriteRenderer>().sortingOrder = 500;
 	}
 
 	public Coins()

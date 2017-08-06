@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectEventTrigger : MonoBehaviour
@@ -14,7 +11,7 @@ public class ObjectEventTrigger : MonoBehaviour
 			if (level.Value.eventSystem.isExecutionAvailable)
 			{
 				level.Value.eventSystem.isExecutionAvailable = false;
-				level.Value.eventSystem.castEvent();
+				level.Value.eventSystem.makeSequence();
 			}
 		}
 	}

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class ObjectEventSystem
 {
-	public double curTime = 0;
-	public SortedDictionary<double, ObjectEvent> events = new SortedDictionary<double, ObjectEvent>(); //time of completion, object event
+	//TODO: Reset time every 1e6
+	public static double curTime = 0; //temporally static
+	public SortedDictionary<double, ObjectEventSequence> eventsSequence = new SortedDictionary<double, ObjectEventSequence>(); //time of completion, object event sequence
 
-	public System.Random random = new System.Random();
-	public const double eps = 1e6;
+	public Random random = new Random();
+	public const double eps = 1e-6;
 
 	public bool isExecutionAvailable = true;
 
@@ -34,7 +34,11 @@ public class ObjectEventSystem
 						for (int k = 0; k < list.Count; k++)
 						{
 							if (GlobalData.getObjectTypeById(list[k].id) == 1)
-								addEvent("behaviour", new object[] { list[k] }, 0);
+							{
+								ObjectEventSequence sequence = new ObjectEventSequence();
+								sequence.addEvent("behaviour", new object[] { list[k] });
+								addSequence(sequence, 0);
+							}
 						}
 					}
 				}
@@ -44,24 +48,19 @@ public class ObjectEventSystem
 
 	}
 
-	public void addEvent(string eventName, object[] arguments, double castTime)
+	public void addSequence(ObjectEventSequence sequence, double castTime)
 	{
-		ObjectEvent objEvent = new ObjectEvent(eventName, arguments);
 		double completionTime = curTime + castTime;
-		while (events.ContainsKey(completionTime))
-			completionTime += random.NextDouble() % eps;
-		events.Add(completionTime, objEvent);
+		while (eventsSequence.ContainsKey(completionTime))
+			completionTime += (random.NextDouble() - 0.5) % eps;
+		eventsSequence.Add(completionTime, sequence);
 	}
 
-	static int counter = 1;
-	public void castEvent()
+	public void makeSequence()
 	{
-		KeyValuePair<double, ObjectEvent> curElement = events.First();
-		curElement.Value.make();
-		events.Remove(curElement.Key);
+		KeyValuePair<double, ObjectEventSequence> curElement = eventsSequence.First();
 		curTime = curElement.Key;
-
-		Debug.Log(counter + ". " + curElement.Value.arguments[curElement.Value.arguments.Length - 1] + ": " + curElement.Value.eventName);
-		counter++;
+		curElement.Value.make();
+		eventsSequence.Remove(curElement.Key);
 	}
 }

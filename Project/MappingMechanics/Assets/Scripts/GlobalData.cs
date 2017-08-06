@@ -15,6 +15,8 @@ public static partial class GlobalData
 
 	public static Dictionary<int, string> textureNameById = new Dictionary<int, string>();
 
+	public static Dictionary<string, Texture2D> maskTextureByName = new Dictionary<string, Texture2D>();
+
 	public static Dictionary<int, string> objectNameById = new Dictionary<int, string>();
 	public static Dictionary<string, int> objectIdByName = new Dictionary<string, int>();
 	public static Dictionary<int, Texture2D> objectTextureById = new Dictionary<int, Texture2D>();
@@ -53,12 +55,12 @@ public static partial class GlobalData
 		poolGameObjects[curId].SetActive(true);
 		return curId;
 	}
-	public static void freeGameObjectToPool(ref int id)
+	public static void freeGameObjectToPool(ref int gameObjectId)
 	{
-		poolGameObjects[id].SetActive(false);
-		poolGameObjects[id].GetComponent<LinearSpriteAnimation>().clear();
-		idFreeGameObjects.Enqueue(id);
-		id = -1;
+		poolGameObjects[gameObjectId].SetActive(false);
+		poolGameObjects[gameObjectId].GetComponent<LinearSpriteAnimation>().clear();
+		idFreeGameObjects.Enqueue(gameObjectId);
+		gameObjectId = -1;
 	}
 
 	public static int getObjectTypeById(int id)
@@ -113,5 +115,16 @@ public static partial class GlobalData
 			}
 		}
 		return objectTextureById[id];
+	}
+
+	public static Texture2D getMaskTextureByName(string name)
+	{
+		if (!maskTextureByName.ContainsKey(name))
+		{
+			string path = "Textures/Masks/" + name;
+			UnityEngine.Object file = Resources.Load(path);
+			maskTextureByName.Add(name, file as Texture2D);
+		}
+		return maskTextureByName[name];
 	}
 }

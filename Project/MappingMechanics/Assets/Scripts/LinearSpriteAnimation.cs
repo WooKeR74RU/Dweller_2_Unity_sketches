@@ -29,6 +29,21 @@ public class LinearSpriteAnimation : MonoBehaviour
 			InvokeRepeating("changeFrame", 0, delay);
 	}
 
+	public void initialize(GameObject gameObj, string maskName, int framesCount, float delay)
+	{
+		this.gameObj = gameObj;
+		this.framesCount = framesCount;
+		this.delay = delay;
+		Texture2D texture = GlobalData.getMaskTextureByName(maskName);
+		int frameWidth = texture.width / framesCount;
+		for (int i = 0; i < framesCount; i++)
+			frames.Add(Sprite.Create(texture, new Rect(i * frameWidth, 0, frameWidth, texture.height), new Vector2(0, 0), 1));
+		if (framesCount == 1)
+			changeFrame();
+		else
+			InvokeRepeating("changeFrame", 0, delay);
+	}
+
 	public void changeFrame()
 	{
 		if (curFrame == framesCount)

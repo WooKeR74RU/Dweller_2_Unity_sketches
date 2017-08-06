@@ -12,7 +12,7 @@ public class Skeleton : Unit
 	{
 		GameObject tmp = GlobalData.poolGameObjects[gameObjId];
 		tmp.GetComponent<LinearSpriteAnimation>().initialize(tmp, id, 2, 1);
-		tmp.GetComponent<SpriteRenderer>().sortingOrder = 3;
+		tmp.GetComponent<SpriteRenderer>().sortingOrder = 1000;
 		offsetX = 0;
 		offsetY = 0;
 	}
