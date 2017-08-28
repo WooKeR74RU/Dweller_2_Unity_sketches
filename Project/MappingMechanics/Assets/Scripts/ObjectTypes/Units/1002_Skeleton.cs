@@ -24,6 +24,7 @@ public class Skeleton : Unit
 
 	public Skeleton()
 	{
+		initializeCommonGroupComponents();
 		id = GlobalData.getObjectIdByName(ToString());
 		opacity = false;
 

@@ -4,6 +4,8 @@
 	public bool movable;
 	public bool trap;
 
-	public abstract override BaseObject fullCopy();
-	public abstract override void setView();
+	public override void initializeCommonGroupComponents()
+	{
+		layerRate = 0;
+	}
 }

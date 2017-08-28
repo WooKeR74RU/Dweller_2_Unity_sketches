@@ -6,18 +6,20 @@ public abstract class Unit : BaseObject
 	public static Pair<int, int>[] dir8 = new Pair<int, int>[] { new Pair<int, int>(0, 1), new Pair<int, int>(1, 1), new Pair<int, int>(1, 0), new Pair<int, int>(1, -1), new Pair<int, int>(0, -1), new Pair<int, int>(-1, -1), new Pair<int, int>(-1, 0), new Pair<int, int>(-1, 1) };
 	public static Pair<int, int>[] dir4 = new Pair<int, int>[] { new Pair<int, int>(0, 1), new Pair<int, int>(1, 0), new Pair<int, int>(0, -1), new Pair<int, int>(-1, 0) };
 
+	public bool isPlayerControl;
+
 	public FOV fov;
 	public int range;
 	public int obstaclePassCount;
-
-	public bool isPlayerControl;
-
-	public abstract override BaseObject fullCopy();
-	public abstract override void setView();
+	
+	public static Random random = new Random();
 
 	public abstract void AIBehavior();
 
-	public static Random random = new Random();
+	public override void initializeCommonGroupComponents()
+	{
+		
+	}
 
 	public void behavior()
 	{

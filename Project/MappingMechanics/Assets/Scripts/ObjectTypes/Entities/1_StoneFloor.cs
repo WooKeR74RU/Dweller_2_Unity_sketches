@@ -17,6 +17,7 @@ public class StoneFloor : Entity
 
 	public StoneFloor()
 	{
+		initializeCommonGroupComponents();
 		id = GlobalData.getObjectIdByName(ToString());
 		opacity = false;
 

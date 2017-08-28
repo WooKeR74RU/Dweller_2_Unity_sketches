@@ -3,107 +3,123 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
-[RequireComponent(typeof(CanvasGroup))]
 [RequireComponent(typeof(Image))]
-public class GenericDialog : MonoBehaviour
+[RequireComponent(typeof(RectTransform))]
+
+public class GenericDialog : MonoBehaviour, BaseUI
 {
 
-    GameObject panel;
+   public GameObject panel;
+	string name;
     Canvas canvas;
-    RectTransform transform;
-    public GenericDialog()
+	List<System.Object> objects = new List<System.Object>();
+	float dialogWidth, dialogHeight;
+    public GenericDialog(Canvas canvas, string name)
     {
-        panel = new GameObject("GenericDialog");
-        transform =  panel.AddComponent<RectTransform>();
+		this.name = name;
+		this.canvas = canvas;
     }
-    public GenericDialog(int x, int y, Canvas canvas) : this()
-    {
-        this.canvas = canvas;
-       
-        panel.transform.parent = canvas.transform;
-    }
-    public void setPosition(int x,int y)
+	public void create()
+	{
+		panel = new GameObject(name);
+		panel.AddComponent<VerticalLayoutGroup>();
+		panel.transform.parent = canvas.transform;
+		layoutPreferences();
+		show();
+		dialogHeight = panel.GetComponent<RectTransform>().sizeDelta.y;
+		dialogWidth = panel.GetComponent<RectTransform>().sizeDelta.x;
+		panel.AddComponent<LayoutElement>();
+	}
+	public void setPosition(int x,int y)
     {
         transform.position = new Vector2(x, y);
     }
-    void LayoutPreferences()
+
+    void layoutPreferences()
     {
         panel.GetComponent<VerticalLayoutGroup>().childControlWidth = false;
         panel.GetComponent<VerticalLayoutGroup>().childControlHeight = false;
         panel.GetComponent<VerticalLayoutGroup>().childForceExpandWidth = false;
         panel.GetComponent<VerticalLayoutGroup>().childForceExpandHeight = false;
         panel.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.UpperCenter;
-    }
-    public void SetChildAligment(TextAnchor p)
+		panel.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+		panel.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+	}
+    public void setChildAligment(TextAnchor textAnchor)
     {
-        panel.GetComponent<VerticalLayoutGroup>().childAlignment = p;
+        panel.GetComponent<VerticalLayoutGroup>().childAlignment = textAnchor;
     }
-    public void SetChildForceExpandWidth(bool p)
+    public void setChildForceExpandWidth(bool p)
     {
-        panel.GetComponent<VerticalLayoutGroup>().childForceExpandWidth = p;
+		panel.GetComponent<VerticalLayoutGroup>().childForceExpandWidth = p;
     }
-    public void SetBackground(Texture2D t)
+    public void setBackground(Texture2D texture)
     {
-        panel.AddComponent<Image>().sprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f), 1);
+        panel.AddComponent<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 1);
     }
-    public void SetBackground(Sprite sprite)
+    public void setBackground(Sprite sprite)
     {
         panel.AddComponent<Image>().sprite = sprite;
     }
-    public void SetPaddings(int left, int right, int top, int bottom)
+    public void setPadding(float left, float right, float top, float bottom)
     {
-        panel.GetComponent<VerticalLayoutGroup>().padding.bottom = bottom;
-        panel.GetComponent<VerticalLayoutGroup>().padding.top = top;
-        panel.GetComponent<VerticalLayoutGroup>().padding.right = right;
-        panel.GetComponent<VerticalLayoutGroup>().padding.left = left;
+        panel.GetComponent<VerticalLayoutGroup>().padding.bottom = (int)bottom;
+        panel.GetComponent<VerticalLayoutGroup>().padding.top = (int)top;
+        panel.GetComponent<VerticalLayoutGroup>().padding.right = (int)right;
+        panel.GetComponent<VerticalLayoutGroup>().padding.left = (int)left;
     }
-    public void SetChildControlWidth(bool p)
-    {
-        panel.GetComponent<VerticalLayoutGroup>().childControlWidth = p;
-    }
-    public void AddButton(string text, Texture2D background, int width, int height)
-    {
 
-      //  Button btn = new Button();
-     
-        //button.GetComponent<Button>().onClick.AddListener(method);
-    }
-    public void AddButton(string text, Texture2D background)
+    public void updateChildSize()
+	{
+		//float width = panel.GetComponent<RectTransform>().sizeDelta.x;
+		for (int i = 0; i < objects.Count; i++)
+		{
+			((BaseUI)objects[i]).setWidth(dialogWidth);
+		}
+	}
+    public void addView(Button button)
     {
-
-     
-        //button.GetComponent<Button>().onClick.AddListener(method);
-    }
-    public void AddButton(Button bt)
+		button.buttonGameObject.transform.parent = panel.transform;
+		objects.Add(button);
+		//button.GetComponent<Button>().onClick.AddListener(method);
+	}
+    public void addView(TextView textView)
     {
-        //button.GetComponent<Button>().onClick.AddListener(method);
-    }
-    public void AddText(string text)
-    {
-
-        //button.GetComponent<Button>().onClick.AddListener(method);
-    }
-    public void AddText(TextView tv)
-    {
-
-        tv.panel.transform.parent = panel.transform;
-        //button.GetComponent<Button>().onClick.AddListener(method);
-    }
-    public void Show()
+		textView.textGameObject.transform.parent = panel.transform;
+		objects.Add(textView);
+	}
+    public void show()
     {
         panel.SetActive(true);
     }
-    public void Hide()
+    public void hide()
     {
         panel.SetActive(false);
     }
-    public void Cancel()
+    public void cancel()
     {
         Destroy(panel);
     }
-    public Image GetDialogBackgroundImage()
-    {
-        return panel.GetComponent<Image>();
-    }
+
+	public void setSize(float width, float height)
+	{
+		setWidth(width);
+		setHeight(height);
+	}
+
+	public void setWidth(float width)
+	{
+		dialogWidth = width;
+		panel.GetComponent<LayoutElement>().preferredWidth = dialogWidth;
+		updateChildSize();
+	}
+
+	public void setHeight(float height)
+	{
+		dialogHeight = height;
+		panel.GetComponent<LayoutElement>().preferredHeight = dialogHeight;
+	}
+
 }

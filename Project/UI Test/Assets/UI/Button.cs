@@ -1,32 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+[RequireComponent(typeof(RectTransform))]
 [RequireComponent(typeof(Image))]
-public class Button : UnityEngine.UI.Button
+public class Button : UnityEngine.UI.Button, BaseUI
 {
-    GameObject buttonGameObject, textGameObject;
+    public GameObject buttonGameObject, textGameObject;
     Canvas canvas;
-    public Button() : base()
+	string buttonName;
+	float paddingl, paddingr, paddingt, paddingd;
+	public Button() : base()
     {
-      
-    }
-    protected override void Start()
-    {
-        buttonGameObject = gameObject;
-        AddText();
-    }
+		
+	}
     public Button(Canvas canvas,string buttonName) : base()
     {
-        this.canvas = canvas;
-        buttonGameObject = new GameObject(buttonName);
-        buttonGameObject.transform.parent = canvas.transform;
-        buttonGameObject.AddComponent<Button>();
-    }
+		this.canvas = canvas;
+		this.buttonName = buttonName;
+	}
+	public void create()
+	{
+		buttonGameObject = new GameObject(buttonName);
+		buttonGameObject.transform.parent = canvas.transform;
+		buttonGameObject.AddComponent<Button>();
+		AddText();
+	}
     void AddText()
     {
-        textGameObject = new GameObject("Text");
+		if (textGameObject != null)
+			return;
+		textGameObject = new GameObject("Text");
 		TextPreferences(textGameObject.AddComponent<Text>());
         textGameObject.transform.parent = buttonGameObject.transform;
     }
@@ -38,6 +43,7 @@ public class Button : UnityEngine.UI.Button
 		text.resizeTextMinSize = 5;
 
 		text.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+		text.alignment = TextAnchor.MiddleCenter;
 
 		text.color = Color.black;
 	}
@@ -45,6 +51,54 @@ public class Button : UnityEngine.UI.Button
     {
         buttonGameObject.transform.parent = parent.transform;
     }
+
+	public void setText(string text)
+	{
+		textGameObject.GetComponent<Text>().text = text;
+	}
+	public void setPivot(Vector2 pivot)
+	{
+		buttonGameObject.GetComponent<RectTransform>().pivot = pivot;
+	}
+	public void setPosition(Vector2 pos)
+	{
+		buttonGameObject.transform.position = pos;
+	}
+	public void setSize(float width, float height)
+	{
+		buttonGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width,height);
+		textGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+		setPadding(paddingl, paddingr, paddingt, paddingd);
+	}
+	public void setPadding(float l,float r,float t,float d)
+	{
+		paddingl = l;
+		paddingr = r;
+		paddingt = t;
+		paddingd = d;
+		float h = buttonGameObject.GetComponent<RectTransform>().sizeDelta.y;
+		float w = buttonGameObject.GetComponent<RectTransform>().sizeDelta.x;
+		textGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(w - (l + r), h - (t + d));
+	}
+	public void setBackground(Texture2D background)
+	{
+		buttonGameObject.GetComponent<Image>().sprite = Sprite.Create(background, new Rect(0, 0, background.width, background.height), new Vector2(0, 0), 1);
+	}
+
+	public void setWidth(float width)
+	{
+		buttonGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, buttonGameObject.GetComponent<RectTransform>().sizeDelta.y);
+		textGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, textGameObject.GetComponent<RectTransform>().sizeDelta.y);
+		setPadding(paddingl, paddingr, paddingt, paddingd);
+
+	}
+
+	public void setHeight(float height)
+	{
+		setPadding(paddingl, paddingr, paddingt, paddingd);
+		buttonGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(buttonGameObject.GetComponent<RectTransform>().sizeDelta.x, height);
+		textGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(textGameObject.GetComponent<RectTransform>().sizeDelta.x, height);
+	}
 }
 
 //using UnityEngine.Events;

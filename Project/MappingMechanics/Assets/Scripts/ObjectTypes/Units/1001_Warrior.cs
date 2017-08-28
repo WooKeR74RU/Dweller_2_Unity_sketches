@@ -25,6 +25,7 @@ public class Warrior : Unit
 
 	public Warrior()
 	{
+		initializeCommonGroupComponents();
 		id = GlobalData.getObjectIdByName(ToString());
 		opacity = false;
 

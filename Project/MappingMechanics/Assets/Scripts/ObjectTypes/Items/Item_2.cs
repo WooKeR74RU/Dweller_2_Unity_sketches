@@ -3,6 +3,8 @@
 	public int count;
 	public bool isDestroyable;
 
-	public abstract override BaseObject fullCopy();
-	public abstract override void setView();
+	public override void initializeCommonGroupComponents()
+	{
+		layerRate = 0;
+	}
 }

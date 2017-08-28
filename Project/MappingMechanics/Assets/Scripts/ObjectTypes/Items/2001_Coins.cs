@@ -17,6 +17,7 @@ public class Coins : Item
 
 	public Coins()
 	{
+		initializeCommonGroupComponents();
 		id = GlobalData.getObjectIdByName(ToString());
 		opacity = false;
 

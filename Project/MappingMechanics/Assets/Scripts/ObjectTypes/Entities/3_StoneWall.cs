@@ -17,6 +17,7 @@ public class StoneWall : Entity
 
 	public StoneWall()
 	{
+		initializeCommonGroupComponents();
 		id = GlobalData.getObjectIdByName(ToString());
 		opacity = true;
 

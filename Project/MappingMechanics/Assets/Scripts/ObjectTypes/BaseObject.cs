@@ -7,13 +7,24 @@ public abstract partial class BaseObject
 	public int id;
 	public Adress adr;
 
-	public bool opacity;
-	
+	public int gameObjId;
 	public int offsetX, offsetY;
 
-	public int gameObjId;
+	public int layerRate = 0;
+	public int layer
+	{
+		get
+		{
+			return adr.worldY * layerRate;
+		}
+	}
+	
+	public bool opacity;
+
 	public void setGameObject(int gameObjId)
 	{
+		Debug.Log(layerRate);
+
 		this.gameObjId = gameObjId;
 		setView();
 		updateGameObject();
@@ -45,6 +56,7 @@ public abstract partial class BaseObject
 		return ci.Invoke(new object[] { }) as BaseObject;
 	}
 
+	public abstract void initializeCommonGroupComponents();
 	public abstract BaseObject fullCopy();
 	public abstract void setView();
 }

@@ -14,15 +14,20 @@ public class Resize : MonoBehaviour {
 	void Update () {
 		
 	}
-	public GameObject xx, yy;
+	public GameObject xx, yy, scaleSlider;
+
 	public void RX()
 	{
-		Map.x = Convert.ToInt32(xx.GetComponent<InputField>().text);
-		Map.Init();
+		Map.segmentCountX = Convert.ToInt32(xx.GetComponent<InputField>().text);
+		Map.initMainMap(true);
 	}
 	public void RY()
 	{
-		Map.y = Convert.ToInt32(yy.GetComponent<InputField>().text);
-		Map.Init();
+		Map.segmentCountY = Convert.ToInt32(yy.GetComponent<InputField>().text);
+		Map.initMainMap(true);
+	}
+	public void setMainTextureScale()
+	{
+		Map.map.GetComponent<RectTransform>().localScale = new Vector2(scaleSlider.GetComponent<Slider>().value, scaleSlider.GetComponent<Slider>().value);
 	}
 }

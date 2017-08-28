@@ -1,65 +1,88 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextView : MonoBehaviour
+public class TextView : Text, BaseUI
 {
 
-    public GameObject canvas, text, panel;
-    VerticalLayoutGroup layout;
-    public TextView(int x, int y, int width, int height, GameObject canvas__)
+	Canvas canvas;
+	public GameObject textGameObject;
+	string name;
+	float paddingl, paddingr, paddingt, paddingd;
+	public TextView(Canvas canvas,string name)
     {
-        panel = new GameObject("Content");
-        canvas = canvas__;
-        text = new GameObject("Text");
+		this.canvas = canvas;
+		this.name = name;
+    }
+	public void create()
+	{
+		textGameObject = new GameObject(name);
+		textGameObject.transform.parent = canvas.transform;
+		textGameObject.AddComponent<Text>();
+		textPreference();
 
-        panel.AddComponent<RectTransform>();
+	}
+	void textPreference()
+	{
+		textGameObject.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+		textGameObject.GetComponent<Text>().resizeTextForBestFit = true;
+		textGameObject.GetComponent<Text>().resizeTextMinSize = 10;
+		textGameObject.GetComponent<Text>().resizeTextMaxSize = 300;
+		textGameObject.GetComponent<Text>().alignByGeometry = true;
+		textGameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+		textGameObject.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+		textGameObject.AddComponent<LayoutElement>();
 
-        panel.AddComponent<CanvasRenderer>();
-        panel.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
-        text.AddComponent<RectTransform>();
-        text.AddComponent<CanvasRenderer>();
-        text.AddComponent<Text>();
-        text.GetComponent<Text>().font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
-        text.GetComponent<Text>().resizeTextForBestFit = true;
-        text.GetComponent<Text>().resizeTextMinSize = 10;
-        text.GetComponent<Text>().resizeTextMaxSize = 300;
-        text.GetComponent<Text>().transform.parent = panel.transform;
-        layout = panel.AddComponent<VerticalLayoutGroup>();
-        LayoutPreferences();
-        panel.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-        text.GetComponent<Text>().alignByGeometry = true;
-
-    }
-    void LayoutPreferences()
+	}
+	public void setVerticalOverflow(VerticalWrapMode mode)
     {
-        layout.childControlWidth = true;
-        layout.childControlHeight = true;
-        layout.childForceExpandWidth = true;
-        layout.childForceExpandHeight = true;
+        textGameObject.GetComponent<Text>().verticalOverflow = mode;
     }
-    public void SetVerticalOverflow(VerticalWrapMode mode)
+    public void setMinTextSize(int size)
     {
-        text.GetComponent<Text>().verticalOverflow = mode;
+        textGameObject.GetComponent<Text>().resizeTextMinSize = size;
     }
-    public void SetMinTextSize(int size)
+    public void setMaxTextSize(int size)
     {
-        text.GetComponent<Text>().resizeTextMinSize = size;
+        textGameObject.GetComponent<Text>().resizeTextMaxSize = size;
     }
-    public void SetMaxTextSize(int size)
+    public void setBackground(Texture2D t)
     {
-        text.GetComponent<Text>().resizeTextMaxSize = size;
-    }
-    public void SetBackground(Texture2D t)
-    {
-        panel.AddComponent<Image>().sprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f), 1);
+		textGameObject.AddComponent<Image>().sprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f), 1);
     }
 
-    public void SetText(string text_)
+    public void setText(string text_)
     {
-        text.GetComponent<Text>().text = text_;
-        panel.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-    }
+        textGameObject.GetComponent<Text>().text = text_;
+	}
+	public void setFontSize(int size)
+	{
+		textGameObject.GetComponent<Text>().fontSize = size;
+	}
+	public void setWidth(float width)
+	{
+		textGameObject.GetComponent<LayoutElement>().preferredWidth = width;
+	}
+	public void setHeight(float height)
+	{
+		textGameObject.GetComponent<LayoutElement>().preferredHeight = height;
+	}
+	public void setSize(float width, float height)
+	{
+		setHeight(height);
+		setWidth(width);
+	}
 
+	public void setPadding(float l, float r, float t, float d)
+	{
+		paddingl = l;
+		paddingr = r;
+		paddingt = t;
+		paddingd = d;
+		float h = textGameObject.GetComponent<RectTransform>().sizeDelta.y;
+		float w = textGameObject.GetComponent<RectTransform>().sizeDelta.x;
+		textGameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(w - (l + r), h - (t + d));
+	}
 }
